@@ -1,4 +1,7 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
+import 'package:invoice/item.dart';
 import 'package:invoice/util.dart';
 
 class detailPage extends StatefulWidget {
@@ -13,6 +16,7 @@ class _detailPageState extends State<detailPage> {
   int i = 0;
   int j = 0;
   int k = 0;
+  int product=0;
   bool isshow = false;
 
   @override
@@ -139,23 +143,19 @@ class _detailPageState extends State<detailPage> {
                       ],
                     ),
                   ),
-                  Container(
-                    margin: EdgeInsets.all(10),
-                    width: double.infinity,
-                    color: Colors.black12,
-                    child: Column(
-                      children: [
-                        Text("${cusdetail.name}"),
-                        Text("${cusdetail.gst}"),
-                        Text("${cusdetail.email}"),
-                        Text("${cusdetail.phone}"),
-                        Text("${cusdetail.address}"),
-                      ],
-                    ),
+                  Column(
+                    children: productdetail.map((e) {
+                      return idetail();
+                    }).toList(),
                   ),
                   InkWell(
                     onTap: () {
+                      product++;
+                      productdetail.add(product);
                       Navigator.pushNamed(context, "item");
+                      setState(() {
+
+                      });
                     },
                     child: Container(
                       margin: EdgeInsets.all(10),

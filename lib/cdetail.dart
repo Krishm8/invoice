@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:invoice/util.dart';
 
@@ -20,11 +22,12 @@ class _cdetailState extends State<cdetail> {
   @override
   void initState() {
     nameController.text = cusdetail.name ?? "";
-    gstController.text=cusdetail.gst??"";
+    gstController.text = cusdetail.gst ?? "";
     emailController.text = cusdetail.email ?? "";
     phoneController.text = cusdetail.phone ?? "";
     addressController.text = cusdetail.address ?? "";
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -136,18 +139,20 @@ class _cdetailState extends State<cdetail> {
                       padding: const EdgeInsets.only(top: 20),
                       child: ElevatedButton(
                         style: ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll(Colors.blue),
-                          foregroundColor: MaterialStatePropertyAll(Colors.white),
+                          backgroundColor: MaterialStatePropertyAll(Colors
+                              .blue),
+                          foregroundColor: MaterialStatePropertyAll(Colors
+                              .white),
                           fixedSize: MaterialStatePropertyAll(
                             Size(150, 60),
                           ),
                         ),
                         onPressed: () {
-                          cusdetail.name=nameController.text;
-                          cusdetail.gst=gstController.text;
-                          cusdetail.email=emailController.text;
-                          cusdetail.phone=phoneController.text;
-                          cusdetail.address=addressController.text;
+                          cusdetail.name = nameController.text;
+                          cusdetail.gst = gstController.text;
+                          cusdetail.email = emailController.text;
+                          cusdetail.phone = phoneController.text;
+                          cusdetail.address = addressController.text;
                           fkey.currentState?.save();
                         },
                         child: Text(
@@ -161,14 +166,24 @@ class _cdetailState extends State<cdetail> {
                       padding: const EdgeInsets.only(top: 20),
                       child: ElevatedButton(
                         style: ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll(Colors.black),
-                          foregroundColor: MaterialStatePropertyAll(Colors.white),
+                          backgroundColor: MaterialStatePropertyAll(
+                              Colors.black),
+                          foregroundColor: MaterialStatePropertyAll(
+                              Colors.white),
                           fixedSize: MaterialStatePropertyAll(
                             Size(150, 60),
                           ),
                         ),
                         onPressed: () {
+                          nameController.clear();
+                          gstController.clear();
+                          emailController.clear();
+                          phoneController.clear();
+                          addressController.clear();
                           fkey.currentState?.reset();
+                          setState(() {
+
+                          });
                         },
                         child: Text(
                           "Reset",

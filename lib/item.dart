@@ -1,25 +1,23 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'dart:js_interop_unsafe';
-
 import 'package:flutter/material.dart';
 import 'package:invoice/util.dart';
 
-class item extends StatefulWidget {
-  const item({super.key});
+class Item extends StatefulWidget {
+  const Item({super.key});
 
   @override
-  State<item> createState() => _itemState();
+  State<Item> createState() => _ItemState();
 }
 
-class _itemState extends State<item> {
+class _ItemState extends State<Item> {
   GlobalKey<FormState> gkey = GlobalKey<FormState>();
 
-  TextEditingController name = TextEditingController();
-  TextEditingController quantity = TextEditingController();
-  TextEditingController rate = TextEditingController();
-  TextEditingController amount = TextEditingController();
-  TextEditingController detail = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController quantityController = TextEditingController();
+  TextEditingController rateController = TextEditingController();
+  TextEditingController amountController = TextEditingController();
+  TextEditingController detailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +45,7 @@ class _itemState extends State<item> {
                   style: TextStyle(fontSize: 20),
                 ),
                 TextFormField(
+                  controller: nameController,
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.name,
                   decoration: InputDecoration(
@@ -64,6 +63,7 @@ class _itemState extends State<item> {
                   style: TextStyle(fontSize: 20),
                 ),
                 TextFormField(
+                  controller: quantityController,
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
@@ -81,6 +81,7 @@ class _itemState extends State<item> {
                   style: TextStyle(fontSize: 20),
                 ),
                 TextFormField(
+                  controller: rateController,
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
@@ -98,6 +99,7 @@ class _itemState extends State<item> {
                   style: TextStyle(fontSize: 20),
                 ),
                 TextFormField(
+                  controller: amountController,
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
@@ -115,6 +117,7 @@ class _itemState extends State<item> {
                   style: TextStyle(fontSize: 20),
                 ),
                 TextFormField(
+                  controller: detailController,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.only(left: 10),
@@ -131,7 +134,11 @@ class _itemState extends State<item> {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        gkey.currentState?.save();
+                        itmdetail.iname = nameController.text;
+                        itmdetail.iquantity = quantityController.text;
+                        itmdetail.irate = rateController.text;
+                        itmdetail.iamount = amountController.text;
+                        itmdetail.idetail = detailController.text;
                       },
                       child: Text(
                         "Save",
@@ -181,9 +188,40 @@ class idetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 120,
-      width: 150,
+      margin: EdgeInsets.only(left: 10),
+      height: 100,
+      width: 350,
       color: Colors.black12,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "${itmdetail.iname}",
+            style: TextStyle(fontSize: 20),
+          ),
+          SizedBox(
+            width: 100,
+          ),
+          Text(
+            "${itmdetail.iquantity}",
+            style: TextStyle(fontSize: 20),
+          ),
+          SizedBox(
+            width: 20,
+          ),
+          Text(
+            "${itmdetail.irate}",
+            style: TextStyle(fontSize: 20),
+          ),
+          SizedBox(
+            width: 20,
+          ),
+          Text(
+            "${itmdetail.iamount}",
+            style: TextStyle(fontSize: 20),
+          ),
+        ],
+      ),
     );
   }
 }

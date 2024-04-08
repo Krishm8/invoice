@@ -11,10 +11,10 @@ void main() {
       debugShowCheckedModeBanner: false,
       initialRoute: "/",
       routes: {
-        "/":(context) => homepage(),
-        "detail":(context) => detailPage(),
-        "cdetail":(context) => cdetail(),
-        "item":(context) => item(),
+        "/": (context) => homepage(),
+        "detail": (context) => detailPage(),
+        "cdetail": (context) => cdetail(),
+        "item": (context) => Item(),
       },
     ),
   );

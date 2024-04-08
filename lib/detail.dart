@@ -1,7 +1,8 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
 import 'package:invoice/item.dart';
+import 'package:invoice/pdf_page.dart';
 import 'package:invoice/util.dart';
 
 class detailPage extends StatefulWidget {
@@ -13,11 +14,8 @@ class detailPage extends StatefulWidget {
 
 class _detailPageState extends State<detailPage> {
   bool check1 = false;
-  int i = 0;
   int j = 0;
-  int k = 0;
   int product=0;
-  bool isshow = false;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +32,9 @@ class _detailPageState extends State<detailPage> {
               InkWell(
                 onTap: () {
                   Navigator.pushNamed(context, "cdetail");
+                  setState(() {
+
+                  });
                 },
                 child: Container(
                   margin: EdgeInsets.only(right: 25),
@@ -49,7 +50,6 @@ class _detailPageState extends State<detailPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      if (!isshow)
                         Text(
                           "${cusdetail.name}",
                           style: TextStyle(fontSize: 20),
@@ -109,10 +109,6 @@ class _detailPageState extends State<detailPage> {
                         SizedBox(
                           width: 70,
                         ),
-                        Icon(Icons.edit),
-                        SizedBox(
-                          width: 15,
-                        ),
                         Text(
                           "Qty",
                           style: TextStyle(
@@ -121,7 +117,7 @@ class _detailPageState extends State<detailPage> {
                           ),
                         ),
                         SizedBox(
-                          width: 15,
+                          width: 30,
                         ),
                         Text(
                           "Rate",
@@ -131,7 +127,7 @@ class _detailPageState extends State<detailPage> {
                           ),
                         ),
                         SizedBox(
-                          width: 15,
+                          width: 30,
                         ),
                         Text(
                           "Amt",
@@ -143,10 +139,25 @@ class _detailPageState extends State<detailPage> {
                       ],
                     ),
                   ),
-                  Column(
-                    children: productdetail.map((e) {
-                      return idetail();
-                    }).toList(),
+                  SingleChildScrollView(
+                    child: Column(
+                      children: productdetail.map((e) {
+                        return Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10),
+                              child: InkWell(
+                                  onTap: () {
+                                    productdetail.remove(e);
+                                    setState(() {});
+                                  },
+                                  child: Icon(Icons.delete)),
+                            ),
+                            idetail(),
+                          ],
+                        );
+                      }).toList(),
+                    ),
                   ),
                   InkWell(
                     onTap: () {
@@ -180,169 +191,42 @@ class _detailPageState extends State<detailPage> {
               ),
             ),
           ),
-          SizedBox(
-            height: 100,
-          ),
-          Expanded(
+          InkWell(
+            onTap: () {
+              PdfData().getPdfPreview();
+            },
             child: Container(
-              child: Column(
-                children: [
-                  Divider(thickness: 2),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Total :",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18),
-                      ),
-                      SizedBox(
-                        width: 265,
-                      ),
-                      Text(
-                        "$j",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18),
-                      ),
-                      SizedBox(
-                        width: 40,
-                      ),
-                      Icon(Icons.currency_rupee),
-                    ],
-                  ),
-                  Divider(thickness: 2),
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10),
-                        child: Text(
-                          "GST",
-                          style: TextStyle(
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 50),
-                        child: Checkbox(
-                          value: check1,
-                          onChanged: (value) {
-                            check1 = value ?? false;
-                            setState(() {});
-                          },
-                        ),
-                      ),
-                      Text(
-                        "IGST",
-                        style: TextStyle(
-                          fontSize: 18,
-                        ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 10),
-                          child: TextFormField(
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                contentPadding: EdgeInsets.all(8)),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 140),
-                        child: Icon(Icons.percent),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10),
-                        child: Text(
-                          "Discount",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 110),
-                          child: TextFormField(
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              contentPadding: EdgeInsets.all(10),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 10),
-                        child: Icon(Icons.percent),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(right: 10, left: 20),
-                        height: 50,
-                        width: 100,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.black,
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Center(
-                          child: Text(
-                            "$k",
-                            style: TextStyle(fontSize: 20),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                  Divider(
-                    thickness: 2,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          padding: EdgeInsets.only(left: 10, top: 5),
-                          height: 35,
-                          child: Text(
-                            "Net Amount",
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Container(
-                          height: 35,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Text(
-                                "$i",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                ),
-                              ),
-                              Icon(Icons.currency_rupee),
-                              SizedBox(
-                                width: 10,
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+              height: 40,width: 120,color: Colors.red,
+            ),
+          ),
+          Container(
+            child: Column(
+              children: [
+                Divider(thickness: 2),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Total :",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 20),
+                    ),
+                    SizedBox(
+                      width: 280,
+                    ),
+                    Text(
+                      "$j",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 20),
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Icon(Icons.currency_rupee),
+                  ],
+                ),
+                SizedBox(height: 10,),
+              ],
             ),
           )
         ],
